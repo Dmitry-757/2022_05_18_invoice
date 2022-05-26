@@ -2,7 +2,7 @@ public class Store {
     private String storeName;
 
     public Store(String storeName) throws Exception {
-        if( StoreService.getStoreIdSet().contains(storeName)) {
+        if( StoreService.isPresent(storeName)) {
             throw new Exception("store with name "+storeName+" already exist!");
         }
 

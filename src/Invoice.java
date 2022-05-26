@@ -1,14 +1,28 @@
 public class Invoice {
-    private String invoiceId;
+    private long invoiceId;
+    private EInvoiceType type;
+    private Store store;
+    private Client client;
 
 
-    public Invoice(String invoiceId) throws Exception {
-        if( StoreService.getInvoiceIdSet().contains(invoiceId)) {
-            throw new Exception("invoice with name "+invoiceId+" already exist!");
+    public Invoice(Store store, EInvoiceType type) throws Exception {
+        invoiceId = StoreService.getLastInvoiceId()+1;
+//        if( StoreService.isInvoiceIdPresent(invoiceId)) {
+        if( StoreService.isPresent(invoiceId)) {
+            throw new Exception("invoice with id "+invoiceId+" already exist!");
         }
 
         this.invoiceId = invoiceId;
-        StoreService.addInvoiceId(invoiceId);
+        StoreService.setLastInvoiceId(invoiceId);
+        this.type = type;
+        this.store = store;
     }
 
+
+
+}
+
+enum EInvoiceType {
+    IN,
+    OUT
 }
