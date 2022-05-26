@@ -23,7 +23,7 @@ public class Invoice {
     //constructors
     public Invoice(@NotNull Store store, @NotNull EInvoiceType type, @NotNull Client client) throws Exception {
         invoiceId = StoreService.getLastInvoiceId()+1;
-        if( StoreService.isPresent(invoiceId)) {
+        if( StoreService.isUsingForbiddend(invoiceId)) {
             throw new Exception("invoice with id "+invoiceId+" already exist!");
         }
 
@@ -34,6 +34,15 @@ public class Invoice {
     }
 
     //add string
+    public void addString(){
+        try {
+            currentStringId += lastInvoiceStringId;
+            InvoiceString invoiceString = new InvoiceString(invoiceId, currentStringId);
+            invoiceStrings.put(invoiceString.getId(), invoiceString);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public void addString(Product product, double quantity){
         try {
             currentStringId += lastInvoiceStringId;
@@ -43,6 +52,7 @@ public class Invoice {
             System.out.println(e.getMessage());
         }
     }
+
 
 
 

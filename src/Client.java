@@ -3,7 +3,7 @@ public class Client {
     private int inn;
 
     public Client(String name, int inn) throws Exception {
-        if( StoreService.isPresent(inn)) {
+        if( StoreService.isUsingForbiddend(inn)) {
             throw new Exception("Client with inn "+inn+" already exist!");
         }
 

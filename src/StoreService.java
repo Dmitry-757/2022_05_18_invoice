@@ -19,7 +19,7 @@ public class StoreService {
 
 
 
-    public static <T> boolean isPresent(T item) {
+    public static <T> boolean isUsingForbiddend(T item) {
         if(item instanceof Store){
             return storeNameSet.contains(item);
         }
@@ -33,7 +33,7 @@ public class StoreService {
             return productIdSet.contains(item);
         }
 
-        return false;
+        return true;
     }
 
 
