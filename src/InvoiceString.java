@@ -1,14 +1,26 @@
+import java.util.Objects;
+
 public class InvoiceString {
+    private long invoiceId; //reference to had-part
     private long invoiceStringId;
 
-    public InvoiceString() throws Exception {
-        invoiceStringId = StoreService.getLastInvoiceId()+1;
-        if( StoreService.isPresent(invoiceStringId)) {
-            throw new Exception("invoice string with id "+invoiceStringId+" already exist!");
-        }
+    private Product product;
 
-        this.invoiceStringId = invoiceStringId;
-        StoreService.setLastInvoiceStringId(invoiceStringId);
+    public InvoiceString(long invoiceId, long invoiceStringId) throws Exception {
+        if((invoiceId>0)&&(invoiceStringId>0)) {
+            this.invoiceId = invoiceId;
+            this.invoiceStringId = invoiceStringId;
+        }
+        else
+            throw new Exception("invoiceId and invoiceStringId must not be zero");
     }
 
+    public long getId() {
+        return invoiceStringId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(invoiceId, invoiceStringId);
+    }
 }

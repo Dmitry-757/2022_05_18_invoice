@@ -12,10 +12,9 @@ public class StoreService {
     //client
     private static HashSet<Long> clientInn = new HashSet<>();
 
-    //invoice strings
-    private static HashSet<Long> invoiceStringIdSet = new HashSet<>();
-    private static long lastInvoiceStringId = 0;
-
+    //product
+    private static HashSet<Long> productIdSet = new HashSet<>();
+    private static long lastProductId = 0;
 
 
 
@@ -30,6 +29,9 @@ public class StoreService {
         else if(item instanceof Client){
             return clientInn.contains(item);
         }
+        else if(item instanceof Product){
+            return productIdSet.contains(item);
+        }
 
         return false;
     }
@@ -40,7 +42,6 @@ public class StoreService {
         storeNameSet.add(storeName);
     }
 
-
     //*** invoice ********
     public static long getLastInvoiceId() {
         return lastInvoiceId;
@@ -50,11 +51,21 @@ public class StoreService {
         invoiceIdSet.add(lastInvoiceId);
     }
 
-    //*** invoice strings **********
-    public static void setLastInvoiceStringId(long lastInvoiceStringId) {
-        StoreService.lastInvoiceStringId = lastInvoiceStringId;
-        invoiceStringIdSet.add(lastInvoiceStringId);
+    //*** Product *************
+    public static long getLastProductId() {
+        return lastProductId;
     }
+    public static void setLastProductId(long lastProductId) {
+        StoreService.lastProductId = lastProductId;
+        productIdSet.add(lastProductId);
+    }
+    //*************************
+
+    //*** invoice strings **********
+//    public static void setLastInvoiceStringId(long lastInvoiceStringId) {
+//        StoreService.lastInvoiceStringId = lastInvoiceStringId;
+//        invoiceStringIdSet.add(lastInvoiceStringId);
+//    }
 
 
 }
