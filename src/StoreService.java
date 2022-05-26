@@ -61,12 +61,6 @@ public class StoreService {
     }
     //*************************
 
-    //*** invoice strings **********
-//    public static void setLastInvoiceStringId(long lastInvoiceStringId) {
-//        StoreService.lastInvoiceStringId = lastInvoiceStringId;
-//        invoiceStringIdSet.add(lastInvoiceStringId);
-//    }
-
 
 }
 

@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public class Invoice {
@@ -19,7 +21,7 @@ public class Invoice {
 
 
     //constructors
-    public Invoice(Store store, EInvoiceType type, Client client) throws Exception {
+    public Invoice(@NotNull Store store, @NotNull EInvoiceType type, @NotNull Client client) throws Exception {
         invoiceId = StoreService.getLastInvoiceId()+1;
         if( StoreService.isPresent(invoiceId)) {
             throw new Exception("invoice with id "+invoiceId+" already exist!");
@@ -32,10 +34,10 @@ public class Invoice {
     }
 
     //add string
-    public void addString(){
+    public void addString(Product product, double quantity){
         try {
             currentStringId += lastInvoiceStringId;
-            InvoiceString invoiceString = new InvoiceString(invoiceId, currentStringId);
+            InvoiceString invoiceString = new InvoiceString(invoiceId, currentStringId, product, quantity);
             invoiceStrings.put(invoiceString.getId(), invoiceString);
         } catch (Exception e) {
             System.out.println(e.getMessage());

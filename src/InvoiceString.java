@@ -5,6 +5,7 @@ public class InvoiceString {
     private long invoiceStringId;
 
     private Product product;
+    private double quantity;
 
     public InvoiceString(long invoiceId, long invoiceStringId) throws Exception {
         if((invoiceId>0)&&(invoiceStringId>0)) {
@@ -15,8 +16,36 @@ public class InvoiceString {
             throw new Exception("invoiceId and invoiceStringId must not be zero");
     }
 
+    public InvoiceString(long invoiceId, long invoiceStringId, Product product, double quantity) throws Exception {
+        if((invoiceId>0)&&(invoiceStringId>0)) {
+            this.invoiceId = invoiceId;
+            this.invoiceStringId = invoiceStringId;
+            this.product = product;
+            this.quantity = quantity;
+        }
+        else
+            throw new Exception("invoiceId and invoiceStringId must not be zero");
+    }
+
+
     public long getId() {
         return invoiceStringId;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
     }
 
     @Override

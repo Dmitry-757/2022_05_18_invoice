@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Product {
     private long productID;
     private String productName;
@@ -10,5 +12,10 @@ public class Product {
 
         StoreService.setLastProductId(productID);
         this.productName = productName;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productID);
     }
 }
