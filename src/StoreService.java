@@ -1,12 +1,20 @@
 import java.util.HashSet;
 
+
 public class StoreService {
+    //store
     private static HashSet<String> storeNameSet = new HashSet<>();
 
+    //invoice
     private static HashSet<Long> invoiceIdSet = new HashSet<>();
     private static long lastInvoiceId = 0;
 
+    //client
     private static HashSet<Long> clientInn = new HashSet<>();
+
+    //invoice strings
+    private static HashSet<Long> invoiceStringIdSet = new HashSet<>();
+    private static long lastInvoiceStringId = 0;
 
 
 
@@ -40,6 +48,12 @@ public class StoreService {
     public static void setLastInvoiceId(long lastInvoiceId) {
         StoreService.lastInvoiceId = lastInvoiceId;
         invoiceIdSet.add(lastInvoiceId);
+    }
+
+    //*** invoice strings **********
+    public static void setLastInvoiceStringId(long lastInvoiceStringId) {
+        StoreService.lastInvoiceStringId = lastInvoiceStringId;
+        invoiceStringIdSet.add(lastInvoiceStringId);
     }
 
 
