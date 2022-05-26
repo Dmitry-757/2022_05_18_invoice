@@ -23,7 +23,7 @@ public class Invoice {
     //constructors
     public Invoice(@NotNull Store store, @NotNull EInvoiceType type, @NotNull Client client) throws Exception {
         invoiceId = StoreService.getLastInvoiceId()+1;
-        if( StoreService.isUsingForbiddend(invoiceId)) {
+        if( StoreService.isUsingForbidden(invoiceId)) {
             throw new Exception("invoice with id "+invoiceId+" already exist!");
         }
 

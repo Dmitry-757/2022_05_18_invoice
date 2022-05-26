@@ -19,7 +19,7 @@ public class StoreService {
 
 
 
-    public static <T> boolean isUsingForbiddend(T item) {
+    public static <T> boolean isUsingForbidden(T item) {
         if(item instanceof Store){
             return storeNameSet.contains(item);
         }

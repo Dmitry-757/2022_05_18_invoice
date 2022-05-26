@@ -6,7 +6,7 @@ public class Product {
 
     public Product(String productName) throws Exception {
         productID = StoreService.getLastProductId()+1;
-        if( StoreService.isUsingForbiddend(productID)) {
+        if( StoreService.isUsingForbidden(productID)) {
             throw new Exception("Product with id "+productID+" already exist!");
         }
 
