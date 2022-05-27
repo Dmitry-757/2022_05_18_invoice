@@ -19,17 +19,17 @@ public class StoreService {
 
 
 
-    public static <T> boolean isUsingForbidden(T item) {
-        if(item instanceof Store){
+    public static <C, T> boolean isUsingForbidden(C obj, T item) {
+        if(obj instanceof Store){
             return storeNameSet.contains(item);
         }
-        else if(item instanceof Invoice){
+        else if(obj instanceof Invoice){
             return invoiceIdSet.contains(item);
         }
-        else if(item instanceof Client){
+        else if(obj instanceof Client){
             return clientInn.contains(item);
         }
-        else if(item instanceof Product){
+        else if(obj instanceof Product){
             return productIdSet.contains(item);
         }
 

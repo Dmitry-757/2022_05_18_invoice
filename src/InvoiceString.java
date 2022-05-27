@@ -13,7 +13,7 @@ public class InvoiceString {
             this.invoiceStringId = invoiceStringId;
         }
         else
-            throw new Exception("invoiceId and invoiceStringId must not be zero");
+            throw new Exception("Error! invoiceId and invoiceStringId must not be zero");
     }
 
     public InvoiceString(long invoiceId, long invoiceStringId, Product product, double quantity) throws Exception {
