@@ -7,7 +7,8 @@ public class Product {
 
     public Product(String productName) throws Exception {
         productID = StoreService.getLastProductId()+1;
-        if( StoreService.isUsingForbidden(this, productID)) {
+//            if( StoreService.<Product,Long>isUsingForbidden(this, productID)) {////Explicit type arguments can be inferred
+            if( StoreService.isUsingForbidden(this, productID)) {
             throw new Exception("Product with id "+productID+" already exist!");
         }
 

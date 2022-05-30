@@ -2,9 +2,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class Invoice {
+public class Invoice implements InvoiceI{
     //title
-    private long invoiceId;
+    private final long invoiceId;
     private EInvoiceType type;
     private Store store;
     private Client client;
@@ -18,18 +18,24 @@ public class Invoice {
 
     //constructors
     public Invoice(@NotNull EInvoiceType type, @NotNull Store store, @NotNull Client client) throws Exception {
-        invoiceId = StoreService.getLastInvoiceId()+1;
-        if( StoreService.isUsingForbidden(this, invoiceId)) {
-            throw new Exception("invoice with id "+invoiceId+" already exist!");
+//        if( StoreService.<Invoice, Long>isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
+        if( StoreService.isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
+            throw new Exception("invoice with id "+(StoreService.getLastInvoiceId()+1)+" already exist!");
         }
-
-        StoreService.setLastInvoiceId(invoiceId);
+        this.invoiceId = StoreService.getLastInvoiceId()+1;
         this.type = type;
         this.store = store;
         this.client = client;
+        //StoreService.setLastInvoiceId(invoiceId);
+        StoreService.addNewInvoice(this);
     }
 
     //********* head part of invoice *********
+
+    public long getInvoiceId() {
+        return invoiceId;
+    }
+
     public Store getStore() {
         return store;
     }
@@ -42,19 +48,19 @@ public class Invoice {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    public EInvoiceType getType() {
+        return type;
+    }
+
+    public void setType(EInvoiceType type) {
+        this.type = type;
+    }
     //****************************************
 
     //*********************** work with invoice strings *************
     //**** add string ****
-//    public void addString(){
-//        try {
-//            currentStringId += lastInvoiceStringId;
-//            InvoiceString invoiceString = new InvoiceString(invoiceId, currentStringId);
-//            invoiceStrings.put(invoiceString.getId(), invoiceString);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    @Override
     public void addString(Product product, double quantity){
         try {
             lastInvoiceStringId++;
@@ -67,11 +73,21 @@ public class Invoice {
     }
 
     //**** correcting invoice string ****
+    @Override
     public void correctString(InvoiceString invoiceString, Product product, double quantity){
         invoiceString.setProduct(product);
         invoiceString.setQuantity(quantity);
     }
     //********************************
+
+    //**** removing invoice string from invoice ****
+    @Override
+    public void removeString(InvoiceString invoiceString){
+        invoiceStrings.remove(invoiceString.getId(), invoiceString);
+        //System.gc();//call garbage collector for cleaning memory
+    }
+    //********************************
+
 
     @Override
     public int hashCode() {

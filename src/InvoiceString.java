@@ -1,8 +1,8 @@
 import java.util.Objects;
 
 public class InvoiceString {
-    private long invoiceId; //reference to had-part
-    private long invoiceStringId;
+    private final long invoiceId; //reference to had-part
+    private final long invoiceStringId;
 
     private Product product;
     private double quantity;

@@ -3,6 +3,7 @@ public class Client {
     private int inn;
 
     public Client(String name, int inn) throws Exception {
+//        if( StoreService.<Client, Integer>isUsingForbidden(this, inn)) { //Explicit type arguments can be inferred
         if( StoreService.isUsingForbidden(this, inn)) {
             throw new Exception("Client with inn "+inn+" already exist!");
         }
