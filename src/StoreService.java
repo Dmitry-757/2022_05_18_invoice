@@ -70,9 +70,10 @@ public class StoreService implements StoreServiceI{
     }
 
 
+    //methods from home task
     @Override
-    public void addInvoice(EInvoiceType type, Store store, Client client) throws Exception {
-        Invoice invoice = new Invoice(type, store, client);
+    public Invoice addInvoice(EInvoiceType type, Store store, Client client) throws Exception {
+        return new Invoice(type, store, client);
     }
 
     @Override
