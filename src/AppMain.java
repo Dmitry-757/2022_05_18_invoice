@@ -31,6 +31,6 @@ public class AppMain {
         invoice1.addString(product1, 10);
         invoice1.addString(product2, 20);
 
-        System.out.println(invoice1.toString());
+        System.out.println(invoice1);
     }
 }

@@ -88,6 +88,35 @@ public class Invoice implements InvoiceI{
     }
     //********************************
 
+//    @Override
+//    public TreeMap<Long, InvoiceString> getInvoiceTable() {
+//        TreeMap<Long, InvoiceString> res = new TreeMap<>();
+//        res.putAll(invoiceStrings);
+//        return res;
+//    }
+
+    @Override
+    public String getInvoiceStrings() {
+        TreeMap<Long, InvoiceString> treeMap = new TreeMap<>();
+        treeMap.putAll(invoiceStrings);
+        String tablPart = "";
+        if(treeMap.size() > 0 ) {
+            StringBuilder sb = new StringBuilder();
+            for (InvoiceString invoiceString : treeMap.values()) {
+                sb.append("Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
+            }
+            tablPart = sb.toString();
+        }
+        return "Invoice{" +
+                "invoiceId=" + invoiceId +
+                ", type=" + type +
+                ", store=" + store.getStoreName() +
+                ", client=" + client.getName() +
+                '}'+"\n"+
+                tablPart;
+    }
+
+
 
     @Override
     public int hashCode() {
