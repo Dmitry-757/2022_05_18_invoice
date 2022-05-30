@@ -15,7 +15,6 @@ public class Invoice implements InvoiceI{
     private long currentStringId = 0;
 
 
-
     //constructors
     public Invoice(@NotNull EInvoiceType type, @NotNull Store store, @NotNull Client client) throws Exception {
 //        if( StoreService.<Invoice, Long>isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
