@@ -5,6 +5,6 @@ public interface InvoiceI {
     void correctString(InvoiceString invoiceString, Product product, double quantity);
     void removeString(InvoiceString invoiceString);
     //TreeMap<Long, InvoiceString> getInvoiceTable();
-    String getInvoiceStrings();
+    String getTableOfProducts();
 
 }

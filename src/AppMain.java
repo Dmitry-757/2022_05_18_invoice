@@ -21,16 +21,19 @@ public class AppMain {
             e.printStackTrace();
         }
 
-        Product product1 = null, product2 = null;
+        Product product1 = null, product2 = null, product3 = null;
         try {
             product1 = new Product("some product1");
             product2 = new Product("some product2");
+            product3 = new Product("some product0");
+            invoice1.addString(product1, 10);
+            invoice1.addString(product2, 20);
+            invoice1.addString(product3, 5);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        invoice1.addString(product1, 10);
-        invoice1.addString(product2, 20);
 
         System.out.println(invoice1);
+        System.out.println(invoice1.getTableOfProducts());
     }
 }

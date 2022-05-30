@@ -95,14 +95,36 @@ public class Invoice implements InvoiceI{
 //    }
 
     @Override
-    public String getInvoiceStrings() {
-        TreeMap<Long, InvoiceString> treeMap = new TreeMap<>();
-        treeMap.putAll(invoiceStrings);
+    public String getTableOfProducts() {
+
+//        Comparator<Long> valueComparator = new Comparator<Long>() {
+//            @Override
+//            public int compare(Long o1, Long o2) {
+//                int compare = invoiceStrings.get(o1).getProduct().getProductName().compareTo(invoiceStrings.get(o2).getProduct().getProductName());
+//                if (compare == 0) return 1;
+//                else return compare;
+//            }
+//        };
+
+        Comparator<Long> valueComparator = (o1, o2) -> {
+            int compare = invoiceStrings.get(o1).getProduct().getProductName().compareTo(invoiceStrings.get(o2).getProduct().getProductName());
+            if (compare == 0) return 1;
+            else return compare;
+        };
+
+        TreeMap<Long, InvoiceString> sortedTreeMap = new TreeMap<Long, InvoiceString>(valueComparator);
+        sortedTreeMap.putAll(invoiceStrings);
+
+
         String tablPart = "";
-        if(treeMap.size() > 0 ) {
+        if(sortedTreeMap.size() > 0 ) {
             StringBuilder sb = new StringBuilder();
-            for (InvoiceString invoiceString : treeMap.values()) {
-                sb.append("Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
+            String output = String.format("%20s    %10s \n", "Product", "quantity");
+            sb.append(output);
+            for (InvoiceString invoiceString : sortedTreeMap.values()) {
+                output = String.format("%20s    %10s \n", invoiceString.getProduct().getProductName(), invoiceString.getQuantity());
+                sb.append(output);
+//                sb.append("Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablPart = sb.toString();
         }
