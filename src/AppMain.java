@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class AppMain {
     public static void main(String[] args) {
         Client ka1 = null;
@@ -35,5 +37,22 @@ public class AppMain {
 
         System.out.println(invoice1);
         System.out.println(invoice1.getTableOfProducts());
+
+        System.out.println("********************************************");
+        System.out.println();
+        System.out.println("let`s try find product by name 'some product0'");
+
+        Map<Long, InvoiceString> filteredMap =
+        invoice1.getInvoiceString("some product0");
+        for (Map.Entry<Long, InvoiceString> es: filteredMap.entrySet()){
+            System.out.println(es.getValue());
+        }
+
+        System.out.println("********************************************");
+        System.out.println();
+        System.out.println("let`s try find product by ID '2'");
+        System.out.println(invoice1.getInvoiceString(2));
+
+
     }
 }

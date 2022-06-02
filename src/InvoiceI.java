@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.TreeMap;
 
 public interface InvoiceI {
@@ -6,5 +7,7 @@ public interface InvoiceI {
     void removeString(InvoiceString invoiceString);
     //TreeMap<Long, InvoiceString> getInvoiceTable();
     String getTableOfProducts();
+    Map<Long, InvoiceString> getInvoiceString(String productName);
+    Map<Long, InvoiceString> getInvoiceString(long productID);
 
 }

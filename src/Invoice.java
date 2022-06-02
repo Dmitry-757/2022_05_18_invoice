@@ -1,6 +1,8 @@
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Invoice implements InvoiceI{
     //title
@@ -12,6 +14,7 @@ public class Invoice implements InvoiceI{
     //strings
     private long lastInvoiceStringId = 0;
     private HashMap<Long, InvoiceString> invoiceStrings = new HashMap<>();
+    private HashSet<Product> productSet = new HashSet<>(); //to provide uniqueness of Products in invoice
     private long currentStringId = 0;
 
 
@@ -62,10 +65,14 @@ public class Invoice implements InvoiceI{
     @Override
     public void addString(Product product, double quantity){
         try {
-            lastInvoiceStringId++;
-            currentStringId = lastInvoiceStringId;
-            InvoiceString invoiceString = new InvoiceString(invoiceId, lastInvoiceStringId, product, quantity);
-            invoiceStrings.put(invoiceString.getId(), invoiceString);
+            if(!productSet.contains(product)) {
+                lastInvoiceStringId++;
+                currentStringId = lastInvoiceStringId;
+                InvoiceString invoiceString = new InvoiceString(invoiceId, lastInvoiceStringId, product, quantity);
+                invoiceStrings.put(invoiceString.getId(), invoiceString);
+                productSet.add(product);
+            }
+            else System.out.println("Product "+product.getProductName()+" already present!");
         } catch (Exception e) {
             System.out.println("Error! "+e.getMessage());
         }
@@ -83,16 +90,11 @@ public class Invoice implements InvoiceI{
     @Override
     public void removeString(InvoiceString invoiceString){
         invoiceStrings.remove(invoiceString.getId(), invoiceString);
+        productSet.remove(invoiceString.getProduct());
         //System.gc();//call garbage collector for cleaning memory
     }
     //********************************
 
-//    @Override
-//    public TreeMap<Long, InvoiceString> getInvoiceTable() {
-//        TreeMap<Long, InvoiceString> res = new TreeMap<>();
-//        res.putAll(invoiceStrings);
-//        return res;
-//    }
 
     @Override
     public String getTableOfProducts() {
@@ -137,7 +139,40 @@ public class Invoice implements InvoiceI{
                 tablPart;
     }
 
+    @Override
+    public Map<Long, InvoiceString> getInvoiceString(String productName) {
 
+//        Map<Long, InvoiceString> filteredMap = new HashMap<>();
+//        for (Map.Entry<Long, InvoiceString> v : invoiceStrings
+//                .entrySet()) {
+//            if (productName.equals(v.getValue())) {
+//                if (filteredMap.put(v.getKey(), v.getValue()) != null) {
+//                    throw new IllegalStateException("Duplicate key");
+//                }
+//            }
+//        }
+
+        Map<Long, InvoiceString> filteredMap = invoiceStrings
+                .entrySet()
+                .stream()
+                .filter(v -> productName.equals(v.getValue().getProduct().getProductName()))
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+
+        return filteredMap;
+    }
+
+    @Override
+    public Map<Long, InvoiceString> getInvoiceString(long productID) {
+        Map<Long, InvoiceString> filteredMap = invoiceStrings
+                .entrySet()
+                .stream()
+                .filter(v -> productID == (v.getValue().getProduct().getProductID()))
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+
+        return filteredMap;
+    }
 
     @Override
     public int hashCode() {
