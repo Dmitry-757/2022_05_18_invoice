@@ -12,8 +12,9 @@ public class Product {
             throw new Exception("Product with id "+productID+" already exist!");
         }
 
-        StoreService.setLastProductId(productID);
+        //StoreService.setLastProductId(productID);
         this.productName = productName;
+        StoreService.addProduct(this);
     }
 
     public long getProductID() {
@@ -40,4 +41,5 @@ public class Product {
     public int hashCode() {
         return Objects.hash(productID);
     }
+
 }

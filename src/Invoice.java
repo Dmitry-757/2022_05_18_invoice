@@ -102,14 +102,22 @@ public class Invoice implements InvoiceI{
 //        Comparator<Long> valueComparator = new Comparator<Long>() {
 //            @Override
 //            public int compare(Long o1, Long o2) {
-//                int compare = invoiceStrings.get(o1).getProduct().getProductName().compareTo(invoiceStrings.get(o2).getProduct().getProductName());
+//                int compare = invoiceStrings
+//                                      .get(o1)
+//                                      .getProduct()
+//                                      .getProductName()
+//                                      .compareTo(invoiceStrings.get(o2).getProduct().getProductName());
 //                if (compare == 0) return 1;
 //                else return compare;
 //            }
 //        };
 
         Comparator<Long> valueComparator = (o1, o2) -> {
-            int compare = invoiceStrings.get(o1).getProduct().getProductName().compareTo(invoiceStrings.get(o2).getProduct().getProductName());
+            int compare = invoiceStrings
+                            .get(o1)
+                            .getProduct()
+                            .getProductName()
+                            .compareTo(invoiceStrings.get(o2).getProduct().getProductName());
             if (compare == 0) return 1;
             else return compare;
         };
@@ -140,17 +148,8 @@ public class Invoice implements InvoiceI{
     }
 
     @Override
-    public Map<Long, InvoiceString> getInvoiceString(String productName) {
-
-//        Map<Long, InvoiceString> filteredMap = new HashMap<>();
-//        for (Map.Entry<Long, InvoiceString> v : invoiceStrings
-//                .entrySet()) {
-//            if (productName.equals(v.getValue())) {
-//                if (filteredMap.put(v.getKey(), v.getValue()) != null) {
-//                    throw new IllegalStateException("Duplicate key");
-//                }
-//            }
-//        }
+    //getInvoiceStringByProductName
+    public Map<Long, InvoiceString> getInvoiceStringByProduct(String productName) {
 
         Map<Long, InvoiceString> filteredMap = invoiceStrings
                 .entrySet()
@@ -163,7 +162,8 @@ public class Invoice implements InvoiceI{
     }
 
     @Override
-    public Map<Long, InvoiceString> getInvoiceString(long productID) {
+    //getInvoiceStringByProductID
+    public Map<Long, InvoiceString> getInvoiceStringByProduct(long productID) {
         Map<Long, InvoiceString> filteredMap = invoiceStrings
                 .entrySet()
                 .stream()

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Store {
     private String storeName;
 
@@ -8,10 +10,23 @@ public class Store {
         }
 
         this.storeName = storeName;
-        StoreService.addStoreName(storeName);
+        StoreService.addNewStore(this);
     }
 
     public String getStoreName() {
         return storeName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Store)) return false;
+        Store store = (Store) o;
+        return storeName.equals(store.storeName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(storeName);
     }
 }

@@ -7,15 +7,7 @@ public class InvoiceString {
     private Product product;
     private double quantity;
 
-//    public InvoiceString(long invoiceId, long invoiceStringId) throws Exception {
-//        if((invoiceId>0)&&(invoiceStringId>0)) {
-//            this.invoiceId = invoiceId;
-//            this.invoiceStringId = invoiceStringId;
-//        }
-//        else
-//            throw new Exception("Error! invoiceId and invoiceStringId must not be zero");
-//    }
-
+    //constructor
     public InvoiceString(long invoiceId, long invoiceStringId, Product product, double quantity) throws Exception {
         if((invoiceId>0)&&(invoiceStringId>0)) {
             this.invoiceId = invoiceId;
@@ -27,7 +19,7 @@ public class InvoiceString {
             throw new Exception("invoiceId and invoiceStringId must not be zero");
     }
 
-
+    //getters & setters
     public long getId() {
         return invoiceStringId;
     }
@@ -48,6 +40,7 @@ public class InvoiceString {
         this.quantity = quantity;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(invoiceId, invoiceStringId);
@@ -58,7 +51,8 @@ public class InvoiceString {
         return "InvoiceString{" +
                 "invoiceId=" + invoiceId +
                 ", invoiceStringId=" + invoiceStringId +
-                ", product=" + product.getProductName() +
+                ", product id=" + product.getProductID() +
+                ", product name=" + product.getProductName() +
                 ", quantity=" + quantity +
                 '}';
     }

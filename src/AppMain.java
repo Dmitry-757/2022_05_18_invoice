@@ -43,7 +43,7 @@ public class AppMain {
         System.out.println("let`s try find product by name 'some product0'");
 
         Map<Long, InvoiceString> filteredMap =
-        invoice1.getInvoiceString("some product0");
+        invoice1.getInvoiceStringByProduct("some product0");
         for (Map.Entry<Long, InvoiceString> es: filteredMap.entrySet()){
             System.out.println(es.getValue());
         }
@@ -51,7 +51,7 @@ public class AppMain {
         System.out.println("********************************************");
         System.out.println();
         System.out.println("let`s try find product by ID '2'");
-        System.out.println(invoice1.getInvoiceString(2));
+        System.out.println(invoice1.getInvoiceStringByProduct(2));
 
 
     }

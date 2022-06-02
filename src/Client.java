@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Client {
     private String name;
     private int inn;
@@ -10,6 +12,7 @@ public class Client {
 
         this.name = name;
         this.inn = inn;
+        StoreService.addClient(this);
     }
 
     public String getName() {
@@ -20,4 +23,16 @@ public class Client {
         return inn;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+        Client client = (Client) o;
+        return inn == client.inn;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inn);
+    }
 }
