@@ -2,7 +2,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Invoice implements InvoiceI{
     //title
@@ -118,15 +118,16 @@ public class Invoice implements InvoiceI{
                             .getProduct()
                             .getProductName()
                             .compareTo(invoiceStrings.get(o2).getProduct().getProductName());
-            if (compare == 0) return 1;
-            else return compare;
+//            if (compare == 0) return 1;
+//            else return compare;
+            return compare;
         };
 
-        TreeMap<Long, InvoiceString> sortedTreeMap = new TreeMap<Long, InvoiceString>(valueComparator);
+        TreeMap<Long, InvoiceString> sortedTreeMap = new TreeMap<>(valueComparator);
         sortedTreeMap.putAll(invoiceStrings);
 
 
-        String tablPart = "";
+        String tablePart = "";
         if(sortedTreeMap.size() > 0 ) {
             StringBuilder sb = new StringBuilder();
             String output = String.format("%20s    %10s \n", "Product", "quantity");
@@ -136,7 +137,7 @@ public class Invoice implements InvoiceI{
                 sb.append(output);
 //                sb.append("Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
-            tablPart = sb.toString();
+            tablePart = sb.toString();
         }
         return "Invoice{" +
                 "invoiceId=" + invoiceId +
@@ -144,7 +145,7 @@ public class Invoice implements InvoiceI{
                 ", store=" + store.getStoreName() +
                 ", client=" + client.getName() +
                 '}'+"\n"+
-                tablPart;
+                tablePart;
     }
 
     @Override
