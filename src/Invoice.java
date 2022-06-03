@@ -142,7 +142,7 @@ public class Invoice implements InvoiceI{
         return "Invoice{" +
                 "invoiceId=" + invoiceId +
                 ", type=" + type +
-                ", store=" + store.getStoreName() +
+                ", store=" + store.getName() +
                 ", client=" + client.getName() +
                 '}'+"\n"+
                 tablePart;
@@ -193,7 +193,7 @@ public class Invoice implements InvoiceI{
         return "Invoice{" +
                 "invoiceId=" + invoiceId +
                 ", type=" + type +
-                ", store=" + store.getStoreName() +
+                ", store=" + store.getName() +
                 ", client=" + client.getName() +
                 '}'+"\n"+
                 tablPart;

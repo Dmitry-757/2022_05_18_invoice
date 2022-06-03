@@ -1,4 +1,3 @@
-import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,7 +73,9 @@ public class CLI {
             Product product = StoreService.getProductByName(name);
 
             if (product != null) {
-                StoreService.deleteProduct(product);
+//                StoreService.deleteProduct(product);
+                StoreService.deleteDirectoryItem(product);
+
             } else
                 System.out.println("Product by name `" + name + "` is not found");
         } else {
@@ -165,7 +166,8 @@ public class CLI {
             System.out.println("name of deleting store = " + name);
             Store store = StoreService.getStoreByName(name);
             if (store != null) {
-                StoreService.deleteStore(store);
+//                StoreService.deleteStore(store);
+                StoreService.deleteDirectoryItem(store);
             } else
                 System.out.println("Store by name `" + name + "` is not found");
         } else {
@@ -190,7 +192,7 @@ public class CLI {
                 matcher = pattern.matcher(line);
                 if (matcher.find()) {
                     String newName = matcher.group();
-                    store.setStoreName(newName);
+                    store.setName(newName);
                     System.out.println("new name of store = " + newName);
                 }
             } else
@@ -223,9 +225,100 @@ public class CLI {
     //*****************************************************
 
 
+
+
+
+
+
+    //************* work with clients ********************
     private void workWithClients() {
-        System.out.println("1 - New Client, 2 - Change Client, 3 - Delete Client");
+        boolean goBack = false;
+        while (!goBack) {
+            System.out.println("1 - New Client, 2 - Change Client, 3 - Delete Client, 4 - go back");
+            if (sc.hasNextInt()) {
+                switch (sc.nextInt()) {
+                    case 1 -> createNewClient();
+                    case 2 -> changeClient();
+                    case 3 -> deleteClient();
+                    case 4 -> goBack = true;
+                    default -> System.out.println("Wrong input!");
+                }
+            }
+        }
     }
+
+    private void deleteClient() {
+        sc.nextLine();
+        System.out.println("Input inn of deleting client");
+        if (sc.hasNextInt()) {
+            int inn = sc.nextInt();
+            System.out.println("inn of deleting store = " + inn);
+            Client client = StoreService.getClientByINN(inn);
+            if (client != null) {
+                StoreService.deleteDirectoryItem(client);
+            } else
+                System.out.println("Client by INN `" + inn + "` is not found");
+        } else {
+            System.out.println("wrong input - can`t find name...");
+        }
+    }
+
+    private void changeClient() {
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+        String name;
+        sc.nextLine();
+        System.out.println("Input inn of deleting client");
+        if (sc.hasNextInt()) {
+            int inn = sc.nextInt();
+            System.out.println("inn of deleting client = " + inn);
+            Client client = StoreService.getClientByINN(inn);
+            if (client != null) {
+                System.out.println("Input new name of client");
+                String line = sc.nextLine();
+                Matcher matcher = pattern.matcher(line);
+                if (matcher.find()) {
+                    String newName = matcher.group();
+                    client.setName(newName);
+                    System.out.println("new name of client = " + newName);
+                }
+            } else
+                System.out.println("Client by INN `" + inn + "` is not found");
+        } else {
+            System.out.println("wrong input - can`t find name...");
+        }
+    }
+
+    private void createNewClient() {
+        sc.nextLine();
+        System.out.println("Input inn of new client");
+        if (sc.hasNextInt()) {
+            int inn = sc.nextInt();
+            System.out.println("inn of new client = " + inn);
+
+            Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+            System.out.println("Input name of client");
+            String name;
+            sc.nextLine();
+            String line = sc.nextLine();
+            Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                name = matcher.group();
+                System.out.println("name of client = " + name);
+                try {
+                    new Client(name, inn);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("wrong input - can`t find name...");
+            }
+        }
+    }
+    //************* work with store ***********************
+    //*****************************************************
+
+
+
 
 
     private void workWithInvoices() {

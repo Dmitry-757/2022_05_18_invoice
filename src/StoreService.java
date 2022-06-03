@@ -1,7 +1,4 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -47,7 +44,7 @@ public class StoreService {
     //************** service procedures when creating new objects ********
     //*** Store *********
     public static void addNewStore(Store store ) {
-        storeMap.put(store.getStoreName(), store);
+        storeMap.put(store.getName(), store);
     }
 
     //*** invoice ********
@@ -156,26 +153,31 @@ public class StoreService {
     public  static void deleteDirectoryItem(Object obj) {
         if(obj instanceof Product)
             productMap.remove( ( (Product)obj).getProductName()  );
-        else if(Product.class.getName() == "Store")
-            storeMap.remove( ( (Store)obj).getStoreName()  );
+        else if(obj instanceof Store)
+            storeMap.remove( ( (Store)obj).getName()  );
+        else if(obj instanceof Client)
+            clientMap.remove( ( (Client)obj).getInn() );
     }
 
 
     public static Product getProductByName(String name) {
         return productMap.get(name);
     }
-
-    public static void deleteProduct(Product product){
-        productMap.remove(product.getProductName());
-    }
-
     public static Store getStoreByName(String name) {
         return storeMap.get(name);
     }
 
-    public static void deleteStore(Store item){
-        storeMap.remove(item.getStoreName());
+    public static Client getClientByINN(int inn) {
+        return clientMap.get(inn);
     }
+
+
+//    public static void deleteProduct(Product product){
+//        productMap.remove(product.getProductName());
+//    }
+//    public static void deleteStore(Store item){
+//        storeMap.remove(item.getStoreName());
+//    }
 
 }
 

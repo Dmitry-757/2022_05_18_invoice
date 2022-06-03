@@ -13,11 +13,11 @@ public class Store {
         StoreService.addNewStore(this);
     }
 
-    public String getStoreName() {
+    public String getName() {
         return storeName;
     }
 
-    public void setStoreName(String storeName) {
+    public void setName(String storeName) {
         this.storeName = storeName;
     }
 
