@@ -19,7 +19,7 @@ public class StoreService {
     private static HashMap<Integer, Client> clientMap = new HashMap<>();
 
     //product
-    private static HashMap<Long, Product> productMap = new HashMap<>();
+    private static HashMap<String, Product> productMap = new HashMap<>();
     private static long lastProductId = 0;
 
 
@@ -66,15 +66,15 @@ public class StoreService {
         return lastProductId;
     }
     public static void addProduct(Product product){
-        productMap.put(product.getProductID(), product);
+        productMap.put(product.getProductName(), product);
         StoreService.lastProductId = product.getProductID();
     }
-
 
     //**** Client **********************
     public static void addClient(Client client){
         clientMap.put(client.getInn(), client);
     }
+
 
 
     //methods from home task
@@ -141,6 +141,41 @@ public class StoreService {
 
     //*************************
 
+    //get Product by name
+//    public static Map<String, Product> getProductByParam(String name) {
+//        Map<String, Product> filteredMap = productMap
+//                .entrySet()
+//                .stream()
+//                .filter(v -> (name.equals(v.getValue().getProductName()) )  )
+//                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+//
+//        return filteredMap;
+//    }
+
+
+    public  static void deleteDirectoryItem(Object obj) {
+        if(obj instanceof Product)
+            productMap.remove( ( (Product)obj).getProductName()  );
+        else if(Product.class.getName() == "Store")
+            storeMap.remove( ( (Store)obj).getStoreName()  );
+    }
+
+
+    public static Product getProductByName(String name) {
+        return productMap.get(name);
+    }
+
+    public static void deleteProduct(Product product){
+        productMap.remove(product.getProductName());
+    }
+
+    public static Store getStoreByName(String name) {
+        return storeMap.get(name);
+    }
+
+    public static void deleteStore(Store item){
+        storeMap.remove(item.getStoreName());
+    }
 
 }
 

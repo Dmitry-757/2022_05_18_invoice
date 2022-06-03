@@ -17,6 +17,10 @@ public class Store {
         return storeName;
     }
 
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

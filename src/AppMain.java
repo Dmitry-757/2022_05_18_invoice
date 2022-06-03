@@ -1,7 +1,7 @@
 import java.util.Map;
 
 public class AppMain {
-    private static  boolean terminate;
+    static  boolean terminate;
 
     public static void main(String[] args) {
         /*
