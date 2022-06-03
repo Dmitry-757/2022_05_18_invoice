@@ -1,7 +1,10 @@
 import java.util.Map;
 
 public class AppMain {
+    private static  boolean terminate;
+
     public static void main(String[] args) {
+        /*
         Client ka1 = null;
         try {
             ka1 = new Client("Pupkin",1101005351);
@@ -52,7 +55,11 @@ public class AppMain {
         System.out.println();
         System.out.println("let`s try find product by ID '2'");
         System.out.println(invoice1.getInvoiceStringByProduct(2));
-
+*/
+        CLI cli = new CLI();
+        while (!terminate){
+            cli.upLevelMenu();
+        }
 
     }
 }
