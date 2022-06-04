@@ -14,7 +14,7 @@ public class WorkWithClients {
     public static void workWithClients() {
         boolean goBack = false;
         while (!goBack) {
-            System.out.println("1 - New client, 2 - change client, 3 - Delete client, 4-print all client, 5 - go back");
+            System.out.println("1 - New client, 2 - change client, 3 - Delete client, 4 - print all client, 5 - go back");
             if (sc.hasNextInt()) {
                 int choice = sc.nextInt();
                 sc.nextLine();
@@ -59,8 +59,6 @@ public class WorkWithClients {
 
     private static void changeClient() {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
-        //String name;
-        //sc.nextLine();
         printClients();
         System.out.println("Input inn of changing client");
         if (sc.hasNextInt()) {

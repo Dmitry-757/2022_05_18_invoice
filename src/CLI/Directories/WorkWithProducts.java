@@ -15,7 +15,7 @@ public class WorkWithProducts {
     static void workWithProducts() {
         boolean goBack = false;
         while (!goBack) {
-            System.out.println("1 - New product, 2 - Change product, 3 - Delete product, 4- print products,  5 - go back");
+            System.out.println("1 - New product, 2 - Change product, 3 - Delete product, 4 - print products,  5 - go back");
             if (sc.hasNextInt()) {
                 int choice=sc.nextInt();
                 sc.nextLine();

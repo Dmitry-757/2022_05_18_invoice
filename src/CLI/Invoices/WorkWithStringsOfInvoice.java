@@ -1,6 +1,5 @@
 package CLI.Invoices;
 
-import BusinessModel.Client;
 import BusinessModel.Invoice;
 
 import java.util.regex.Matcher;
