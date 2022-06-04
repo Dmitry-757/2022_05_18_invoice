@@ -16,7 +16,7 @@ public class Invoice implements InvoiceI{
 
     //strings
     private long lastInvoiceStringId = 0;
-    private HashMap<Long, InvoiceString> invoiceStrings = new HashMap<>();
+    private HashMap<Long, InvoiceString> invoiceStringsMap = new HashMap<>();
     private HashSet<Product> productSet = new HashSet<>(); //to provide uniqueness of Products in invoice
     private long currentStringId = 0;
 
@@ -43,6 +43,11 @@ public class Invoice implements InvoiceI{
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
+    }
+
     public Store getStore() {
         return store;
     }
@@ -66,6 +71,12 @@ public class Invoice implements InvoiceI{
     //****************************************
 
     //*********************** work with invoice strings *************
+
+
+    public HashSet<Product> getProductSet() {
+        return productSet;
+    }
+
     //**** add string ****
     @Override
     public void addString(Product product, double quantity){
@@ -74,7 +85,7 @@ public class Invoice implements InvoiceI{
                 lastInvoiceStringId++;
                 currentStringId = lastInvoiceStringId;
                 InvoiceString invoiceString = new InvoiceString(invoiceId, lastInvoiceStringId, product, quantity);
-                invoiceStrings.put(invoiceString.getId(), invoiceString);
+                invoiceStringsMap.put(invoiceString.getId(), invoiceString);
                 productSet.add(product);
             }
             else System.out.println("Product "+product.getName()+" already present!");
@@ -94,42 +105,31 @@ public class Invoice implements InvoiceI{
     //**** removing invoice string from invoice ****
     @Override
     public void removeString(InvoiceString invoiceString){
-        invoiceStrings.remove(invoiceString.getId(), invoiceString);
+        invoiceStringsMap.remove(invoiceString.getId(), invoiceString);
         productSet.remove(invoiceString.getProduct());
         //System.gc();//call garbage collector for cleaning memory
     }
     //********************************
 
+    public List<InvoiceString> getInvoiceStrings(){
+        return invoiceStringsMap.values().stream().toList();
+    }
 
     @Override
     public String getTableOfProducts() {
 
-//        Comparator<Long> valueComparator = new Comparator<Long>() {
-//            @Override
-//            public int compare(Long o1, Long o2) {
-//                int compare = invoiceStrings
-//                                      .get(o1)
-//                                      .getProduct()
-//                                      .getProductName()
-//                                      .compareTo(invoiceStrings.get(o2).getProduct().getProductName());
-//                if (compare == 0) return 1;
-//                else return compare;
-//            }
-//        };
 
         Comparator<Long> valueComparator = (o1, o2) -> {
-            int compare = invoiceStrings
+            int compare = invoiceStringsMap
                             .get(o1)
                             .getProduct()
                             .getName()
-                            .compareTo(invoiceStrings.get(o2).getProduct().getName());
-//            if (compare == 0) return 1;
-//            else return compare;
+                            .compareTo(invoiceStringsMap.get(o2).getProduct().getName());
             return compare;
         };
 
         TreeMap<Long, InvoiceString> sortedTreeMap = new TreeMap<>(valueComparator);
-        sortedTreeMap.putAll(invoiceStrings);
+        sortedTreeMap.putAll(invoiceStringsMap);
 
 
         String tablePart = "";
@@ -156,7 +156,7 @@ public class Invoice implements InvoiceI{
     //getInvoiceStringByProductName
     public Map<Long, InvoiceString> getInvoiceStringByProduct(String productName) {
 
-        Map<Long, InvoiceString> filteredMap = invoiceStrings
+        Map<Long, InvoiceString> filteredMap = invoiceStringsMap
                 .entrySet()
                 .stream()
                 .filter(v -> productName.equals(v.getValue().getProduct().getName()))
@@ -169,7 +169,7 @@ public class Invoice implements InvoiceI{
     @Override
     //getInvoiceStringByProductID
     public Map<Long, InvoiceString> getInvoiceStringByProduct(long productID) {
-        Map<Long, InvoiceString> filteredMap = invoiceStrings
+        Map<Long, InvoiceString> filteredMap = invoiceStringsMap
                 .entrySet()
                 .stream()
                 .filter(v -> productID == (v.getValue().getProduct().getProductID()))
@@ -187,16 +187,16 @@ public class Invoice implements InvoiceI{
     @Override
     public String toString() {
         String tablPart = "";
-        if(invoiceStrings != null) {
+        if(invoiceStringsMap != null) {
             StringBuilder sb = new StringBuilder();
-            for (InvoiceString invoiceString : invoiceStrings.values()) {
+            for (InvoiceString invoiceString : invoiceStringsMap.values()) {
                 sb.append("Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablPart = sb.toString();
         }
         return "Invoice{" +
                 "invoiceId=" + invoiceId +
-                "invoiceNumber=" + invoiceNumber +
+                ", invoiceNumber=" + invoiceNumber +
                 ", type=" + type +
                 ", store=" + store.getName() +
                 ", client=" + client.getName() +
@@ -206,9 +206,9 @@ public class Invoice implements InvoiceI{
 
     public String getTablePart(){
         String tablPart = "";
-        if(invoiceStrings != null) {
+        if(invoiceStringsMap != null) {
             StringBuilder sb = new StringBuilder();
-            for (InvoiceString invoiceString : invoiceStrings.values()) {
+            for (InvoiceString invoiceString : invoiceStringsMap.values()) {
                 sb.append("Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablPart = sb.toString();

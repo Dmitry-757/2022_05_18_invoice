@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 import static CLI.CLI.sc;
 
 public class CreateNewInvoice {
-    static void createNewInvoice() throws Exception {
+
+    static void createOrChangeInvoice(Invoice invc ) throws Exception {
         String invoiceNumber;
         EInvoiceType type;
         Client client;
@@ -84,11 +85,17 @@ public class CreateNewInvoice {
                 throw new Exception("wrong input name of store!");
             }
 
-            Invoice invoice = new Invoice(invoiceNumber, type, store, client);
-            System.out.println("let`s input table part of invoice");
-            WorkWithStringsOfInvoice.workWithStringsOfInvoice(invoice);
+            if(invc == null){
+                Invoice invoice = new Invoice(invoiceNumber, type, store, client);
+                System.out.println("let`s input table part of invoice");
+                WorkWithStringsOfInvoice.workWithStringsOfInvoice(invoice);
+            }
+            else {
+                StoreService.correctInvoice(invc, invoiceNumber, type, store, client);
+            }
 
         }
     }
+    enum ModeOfInputInvoice{CREATE, CHANGE}
 
 }

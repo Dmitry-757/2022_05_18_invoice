@@ -97,13 +97,14 @@ public class StoreService {
 //        return new Invoice(invoiceNumber, type, store, client);
 //    }
 
-    public static void correctInvoice(Invoice invoice, EInvoiceType type, Store store, Client client) {
+    public static void correctInvoice(Invoice invoice, String invoiceNumber, EInvoiceType type, Store store, Client client) {
+        invoice.setInvoiceNumber(invoiceNumber);
         invoice.setType(type);
         invoice.setStore(store);
         invoice.setClient(client);
     }
 
-    public static void removeInvoice(Invoice invoice) {
+    public static void deleteInvoice(Invoice invoice) {
         invoiceMap.remove(invoice.getInvoiceId());
     }
 
