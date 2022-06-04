@@ -1,3 +1,5 @@
+package BusinessModel;
+
 import java.util.Objects;
 
 public class Product {
@@ -7,12 +9,12 @@ public class Product {
 
     public Product(String productName) throws Exception {
         productID = StoreService.getLastProductId()+1;
-//            if( StoreService.<Product,Long>isUsingForbidden(this, productID)) {////Explicit type arguments can be inferred
+//            if( BusinessModel.StoreService.<BusinessModel.Product,Long>isUsingForbidden(this, productID)) {////Explicit type arguments can be inferred
             if( StoreService.isUsingForbidden(this, productID)) {
-            throw new Exception("Product with id "+productID+" already exist!");
+            throw new Exception("BusinessModel.Product with id "+productID+" already exist!");
         }
 
-        //StoreService.setLastProductId(productID);
+        //BusinessModel.StoreService.setLastProductId(productID);
         this.productName = productName;
         StoreService.addProduct(this);
     }

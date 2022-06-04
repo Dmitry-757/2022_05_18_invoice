@@ -1,3 +1,5 @@
+package BusinessModel;
+
 import java.util.Objects;
 
 public class InvoiceString {
@@ -48,7 +50,7 @@ public class InvoiceString {
 
     @Override
     public String toString() {
-        return "InvoiceString{" +
+        return "BusinessModel.InvoiceString{" +
                 "invoiceId=" + invoiceId +
                 ", invoiceStringId=" + invoiceStringId +
                 ", product id=" + product.getProductID() +

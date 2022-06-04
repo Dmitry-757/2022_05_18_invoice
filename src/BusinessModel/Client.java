@@ -1,3 +1,5 @@
+package BusinessModel;
+
 import java.util.Objects;
 
 public class Client {
@@ -5,9 +7,9 @@ public class Client {
     private int inn;
 
     public Client(String name, int inn) throws Exception {
-//        if( StoreService.<Client, Integer>isUsingForbidden(this, inn)) { //Explicit type arguments can be inferred
+//        if( BusinessModel.StoreService.<BusinessModel.Client, Integer>isUsingForbidden(this, inn)) { //Explicit type arguments can be inferred
         if( StoreService.isUsingForbidden(this, inn)) {
-            throw new Exception("Client with inn "+inn+" already exist!");
+            throw new Exception("BusinessModel.Client with inn "+inn+" already exist!");
         }
 
         this.name = name;

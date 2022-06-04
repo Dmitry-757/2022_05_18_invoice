@@ -1,10 +1,12 @@
+package BusinessModel;
+
 import java.util.Objects;
 
 public class Store {
     private String storeName;
 
     public Store(String storeName) throws Exception {
-//        if( StoreService.<Store,String>isUsingForbidden(this, storeName)) { //Explicit type arguments can be inferred
+//        if( BusinessModel.StoreService.<BusinessModel.Store,String>isUsingForbidden(this, storeName)) { //Explicit type arguments can be inferred
         if( StoreService.isUsingForbidden(this, storeName)) {
             throw new Exception("store with name "+storeName+" already exist!");
         }

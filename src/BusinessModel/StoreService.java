@@ -1,3 +1,5 @@
+package BusinessModel;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,7 +58,7 @@ public class StoreService {
 
 
     //************** service procedures when creating new objects ********
-    //*** Store *********
+    //*** BusinessModel.Store *********
     public static void addNewStore(Store store ) {
         storeMap.put(store.getName(), store);
     }
@@ -72,7 +74,7 @@ public class StoreService {
     }
     //******************************************************
 
-    //*** Product *************
+    //*** BusinessModel.Product *************
     public static long getLastProductId() {
         return lastProductId;
     }
@@ -81,7 +83,7 @@ public class StoreService {
         StoreService.lastProductId = product.getProductID();
     }
 
-    //**** Client **********************
+    //**** BusinessModel.Client **********************
     public static void addClient(Client client){
         clientMap.put(client.getInn(), client);
     }
@@ -152,9 +154,9 @@ public class StoreService {
 
     //*************************
 
-    //get Product by name
-//    public static Map<String, Product> getProductByParam(String name) {
-//        Map<String, Product> filteredMap = productMap
+    //get BusinessModel.Product by name
+//    public static Map<String, BusinessModel.Product> getProductByParam(String name) {
+//        Map<String, BusinessModel.Product> filteredMap = productMap
 //                .entrySet()
 //                .stream()
 //                .filter(v -> (name.equals(v.getValue().getProductName()) )  )
@@ -186,10 +188,10 @@ public class StoreService {
     }
 
 
-//    public static void deleteProduct(Product product){
+//    public static void deleteProduct(BusinessModel.Product product){
 //        productMap.remove(product.getProductName());
 //    }
-//    public static void deleteStore(Store item){
+//    public static void deleteStore(BusinessModel.Store item){
 //        storeMap.remove(item.getStoreName());
 //    }
 
