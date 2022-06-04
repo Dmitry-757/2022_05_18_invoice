@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Invoice implements InvoiceI{
     //title
     private final long invoiceId;
+    private String invoiceNumber;
     private EInvoiceType type;
     private Store store;
     private Client client;
@@ -19,16 +20,16 @@ public class Invoice implements InvoiceI{
 
 
     //constructors
-    public Invoice(@NotNull EInvoiceType type, @NotNull Store store, @NotNull Client client) throws Exception {
+    public Invoice(@NotNull String invoiceNumber, @NotNull EInvoiceType type, @NotNull Store store, @NotNull Client client) throws Exception {
 //        if( StoreService.<Invoice, Long>isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
         if( StoreService.isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
             throw new Exception("invoice with id "+(StoreService.getLastInvoiceId()+1)+" already exist!");
         }
         this.invoiceId = StoreService.getLastInvoiceId()+1;
+        this.invoiceNumber = invoiceNumber;
         this.type = type;
         this.store = store;
         this.client = client;
-        //StoreService.setLastInvoiceId(invoiceId);
         StoreService.addNewInvoice(this);
     }
 
@@ -38,6 +39,9 @@ public class Invoice implements InvoiceI{
         return invoiceId;
     }
 
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
     public Store getStore() {
         return store;
     }

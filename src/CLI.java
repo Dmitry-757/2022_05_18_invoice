@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -260,7 +262,7 @@ public class CLI {
 
     private void changeClient() {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
-        String name;
+        //String name;
         sc.nextLine();
         System.out.println("Input inn of deleting client");
         if (sc.hasNextInt()) {
@@ -315,9 +317,105 @@ public class CLI {
 
 
 
-
+    //************ work with invoices ***********************
     private void workWithInvoices() {
-        System.out.println("1 - New Invoice, 2 - Change Invoice, 3 - Delete Invoice");
+        boolean goBack = false;
+        while (!goBack) {
+            System.out.println("1 - New Invoice, 2 - Change Invoice, 3 - Delete Invoice");
+            if (sc.hasNextInt()) {
+                switch (sc.nextInt()) {
+                    case 1 -> {
+                        try {
+                            createNewInvoice();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    case 2 -> changeInvoice();
+                    case 3 -> deleteInvoice();
+                    case 4 -> goBack = true;
+                    default -> System.out.println("Wrong input!");
+                }
+            }
+        }
+
     }
+
+    private void createNewInvoice() throws Exception {
+        String invoiceNumber = null;
+        EInvoiceType type = null;
+        Client client = null;
+        Store store = null;
+
+        //number of invoice
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+        System.out.println("Input invoice Number");
+        String name;
+        sc.nextLine();
+        String line = sc.nextLine();
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.find()) {
+            invoiceNumber = matcher.group();
+            System.out.println("invoice Number = " + invoiceNumber);
+        } else {
+            throw new Exception("wrong input invoice Number!");
+        }
+
+
+        //type of invoice
+        sc.nextLine();
+        System.out.println("Input type of new invoice: 1-in, 2-out");
+        if (sc.hasNextInt()) {
+            int intValue = sc.nextInt();
+            switch (intValue){
+                case 1 -> type = EInvoiceType.IN;
+                case 2 -> type = EInvoiceType.OUT;
+                default -> {
+                    throw new Exception("Wrong choice of type of invoice!");
+                }
+            }
+            System.out.println("type of new invoice = " + (type != null ? type.name() : null));
+
+            //client
+            System.out.println("Choose client from:");
+            for (Map.Entry<Integer, Client> entry:StoreService.getClientMap().entrySet()){
+                System.out.println("Inn="+entry.getKey()+"  name="+entry.getValue());
+            }
+            System.out.println("Input Inn of client");
+            int inn = 0;
+            sc.nextLine();
+            if (sc.hasNextInt()) {
+                inn = sc.nextInt();
+                System.out.println("Inn of client = " + inn);
+                if(StoreService.getClientMap().containsKey(inn)){
+                    client = StoreService.getClientMap().get(inn);
+                }
+                else throw new Exception("client with inn="+inn+" was not found!");
+            }
+            else throw new Exception("Wrong input of client`s inn!");
+
+            //store
+            pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+            System.out.println("Input name of store");
+            name = null;
+            sc.nextLine();
+            line = sc.nextLine();
+            matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                name = matcher.group();
+                System.out.println("name of store = " + name);
+                if(StoreService.getStoreMap().containsKey(name)){
+                    store = StoreService.getStoreMap().get(name);
+                }
+            } else {
+                throw new Exception("wrong input name of store!");
+            }
+
+            new Invoice(invoiceNumber, type, store, client);
+        }
+    }
+
+    //************ work with invoices ***********************
+    //*******************************************************
 
 }

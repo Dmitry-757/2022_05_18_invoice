@@ -5,12 +5,7 @@ import java.util.stream.Collectors;
 
 public class StoreService {
     //store
-//    private static HashSet<String> storeNameSet = new HashSet<>();
     private static HashMap<String, Store> storeMap = new HashMap<>();
-
-    //invoice key=invoiceId, value=invoice
-    private static HashMap<Long, Invoice> invoiceMap = new HashMap<>();
-    private static long lastInvoiceId = 0;
 
     //client key=INN, value=Name
     private static HashMap<Integer, Client> clientMap = new HashMap<>();
@@ -19,7 +14,26 @@ public class StoreService {
     private static HashMap<String, Product> productMap = new HashMap<>();
     private static long lastProductId = 0;
 
+    //invoice key=invoiceId, value=invoice
+    private static HashMap<Long, Invoice> invoiceMap = new HashMap<>();
+    private static long lastInvoiceId = 0;
 
+
+    public static HashMap<String, Store> getStoreMap() {
+        return storeMap;
+    }
+
+    public static HashMap<Long, Invoice> getInvoiceMap() {
+        return invoiceMap;
+    }
+
+    public static HashMap<Integer, Client> getClientMap() {
+        return clientMap;
+    }
+
+    public static HashMap<String, Product> getProductMap() {
+        return productMap;
+    }
 
     //check uniqueness of objects
     public static <O, T> boolean isUsingForbidden(O obj, T item) {
@@ -75,8 +89,8 @@ public class StoreService {
 
 
     //methods from home task
-    public static Invoice addInvoice(EInvoiceType type, Store store, Client client) throws Exception {
-        return new Invoice(type, store, client);
+    public static Invoice addInvoice(String invoiceNumber, EInvoiceType type, Store store, Client client) throws Exception {
+        return new Invoice(invoiceNumber, type, store, client);
     }
 
     public static void correctInvoice(Invoice invoice, EInvoiceType type, Store store, Client client) {
