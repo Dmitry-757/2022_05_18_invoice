@@ -79,7 +79,7 @@ public class StoreService {
         return lastProductId;
     }
     public static void addProduct(Product product){
-        productMap.put(product.getProductName(), product);
+        productMap.put(product.getName(), product);
         StoreService.lastProductId = product.getProductID();
     }
 
@@ -168,7 +168,7 @@ public class StoreService {
 
     public  static void deleteDirectoryItem(Object obj) {
         if(obj instanceof Product)
-            productMap.remove( ( (Product)obj).getProductName()  );
+            productMap.remove( ( (Product)obj).getName()  );
         else if(obj instanceof Store)
             storeMap.remove( ( (Store)obj).getName()  );
         else if(obj instanceof Client)

@@ -3,6 +3,7 @@ package CLI.Directories;
 import BusinessModel.Client;
 import BusinessModel.StoreService;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,21 +14,32 @@ public class WorkWithClients {
     public static void workWithClients() {
         boolean goBack = false;
         while (!goBack) {
-            System.out.println("1 - New client, 2 - client, 3 - Delete client, 4 - go back");
+            System.out.println("1 - New client, 2 - change client, 3 - Delete client, 4-print all client, 5 - go back");
             if (sc.hasNextInt()) {
                 switch (sc.nextInt()) {
                     case 1 -> createNewClient();
                     case 2 -> changeClient();
                     case 3 -> deleteClient();
-                    case 4 -> goBack = true;
+                    case 4 -> printClients();
+                    case 5 -> goBack = true;
                     default -> System.out.println("Wrong input!");
                 }
             }
         }
     }
 
+    public static void printClients() {
+        System.out.println("current clients:");
+        for (Map.Entry<Integer, Client> entry: StoreService.getClientMap().entrySet()){
+            System.out.println("Inn="+entry.getKey()+"  name="+entry.getValue().getName());
+        }
+    }
+
     private static void deleteClient() {
         sc.nextLine();
+        System.out.println("Choose client from:");
+        printClients();
+
         System.out.println("Input inn of deleting client");
         if (sc.hasNextInt()) {
             int inn = sc.nextInt();
@@ -46,6 +58,7 @@ public class WorkWithClients {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         //String name;
         sc.nextLine();
+        printClients();
         System.out.println("Input inn of changing client");
         if (sc.hasNextInt()) {
             int inn = sc.nextInt();

@@ -1,8 +1,10 @@
 package CLI.Directories;
 
+import BusinessModel.Client;
 import BusinessModel.Product;
 import BusinessModel.StoreService;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,16 +15,24 @@ public class WorkWithProducts {
     static void workWithProducts() {
         boolean goBack = false;
         while (!goBack) {
-            System.out.println("1 - New product, 2 - Change product, 3 - Delete product, 4 - go back");
+            System.out.println("1 - New product, 2 - Change product, 3 - Delete product, 4- print products,  5 - go back");
             if (sc.hasNextInt()) {
                 switch (sc.nextInt()) {
                     case 1 -> createNewProduct();
                     case 2 -> changeProduct();
                     case 3 -> deleteProduct();
-                    case 4 -> goBack = true;
+                    case 4 -> printProducts();
+                    case 5 -> goBack = true;
                     default -> System.out.println("Wrong input!");
                 }
             }
+        }
+    }
+
+    private static void printProducts() {
+        System.out.println("current products:");
+        for (Map.Entry<String, Product> entry : StoreService.getProductMap().entrySet()) {
+            System.out.println("name=" + entry.getKey() );
         }
     }
 
@@ -30,6 +40,7 @@ public class WorkWithProducts {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         String name;
         sc.nextLine();
+        printProducts();
         System.out.println("Input name of deleting product");
         String line = sc.nextLine();
         Matcher matcher = pattern.matcher(line);
@@ -53,6 +64,7 @@ public class WorkWithProducts {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         String name;
         sc.nextLine();
+        printProducts();
         System.out.println("Input name of changing product");
         String line = sc.nextLine();
         Matcher matcher = pattern.matcher(line);

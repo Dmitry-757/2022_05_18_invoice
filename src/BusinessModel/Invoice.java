@@ -78,7 +78,7 @@ public class Invoice implements InvoiceI{
                 invoiceStrings.put(invoiceString.getId(), invoiceString);
                 productSet.add(product);
             }
-            else System.out.println("BusinessModel.Product "+product.getProductName()+" already present!");
+            else System.out.println("BusinessModel.Product "+product.getName()+" already present!");
         } catch (Exception e) {
             System.out.println("Error! "+e.getMessage());
         }
@@ -122,8 +122,8 @@ public class Invoice implements InvoiceI{
             int compare = invoiceStrings
                             .get(o1)
                             .getProduct()
-                            .getProductName()
-                            .compareTo(invoiceStrings.get(o2).getProduct().getProductName());
+                            .getName()
+                            .compareTo(invoiceStrings.get(o2).getProduct().getName());
 //            if (compare == 0) return 1;
 //            else return compare;
             return compare;
@@ -139,7 +139,7 @@ public class Invoice implements InvoiceI{
             String output = String.format("%20s    %10s \n", "BusinessModel.Product", "quantity");
             sb.append(output);
             for (InvoiceString invoiceString : sortedTreeMap.values()) {
-                output = String.format("%20s    %10s \n", invoiceString.getProduct().getProductName(), invoiceString.getQuantity());
+                output = String.format("%20s    %10s \n", invoiceString.getProduct().getName(), invoiceString.getQuantity());
                 sb.append(output);
 //                sb.append("BusinessModel.Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
@@ -161,7 +161,7 @@ public class Invoice implements InvoiceI{
         Map<Long, InvoiceString> filteredMap = invoiceStrings
                 .entrySet()
                 .stream()
-                .filter(v -> productName.equals(v.getValue().getProduct().getProductName()))
+                .filter(v -> productName.equals(v.getValue().getProduct().getName()))
 //                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
                 .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
 
@@ -192,7 +192,7 @@ public class Invoice implements InvoiceI{
         if(invoiceStrings != null) {
             StringBuilder sb = new StringBuilder();
             for (InvoiceString invoiceString : invoiceStrings.values()) {
-                sb.append("BusinessModel.Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
+                sb.append("BusinessModel.Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablPart = sb.toString();
         }

@@ -1,8 +1,8 @@
 package CLI.Invoices;
 
 import BusinessModel.*;
+import CLI.Directories.WorkWithClients;
 
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static CLI.CLI.sc;
@@ -44,9 +44,10 @@ public class CreateNewInvoice {
 
             //client
             System.out.println("Choose client from:");
-            for (Map.Entry<Integer, Client> entry: StoreService.getClientMap().entrySet()){
-                System.out.println("Inn="+entry.getKey()+"  name="+entry.getValue());
-            }
+//            for (Map.Entry<Integer, Client> entry: StoreService.getClientMap().entrySet()){
+//                System.out.println("Inn="+entry.getKey()+"  name="+entry.getValue().getName());
+//            }
+            WorkWithClients.printClients();
             System.out.println("Input Inn of client");
             int inn;
             sc.nextLine();

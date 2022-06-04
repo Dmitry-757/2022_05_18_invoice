@@ -54,7 +54,7 @@ public class InvoiceString {
                 "invoiceId=" + invoiceId +
                 ", invoiceStringId=" + invoiceStringId +
                 ", product id=" + product.getProductID() +
-                ", product name=" + product.getProductName() +
+                ", product name=" + product.getName() +
                 ", quantity=" + quantity +
                 '}';
     }
