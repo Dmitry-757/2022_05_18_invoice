@@ -1,6 +1,6 @@
 package CLI.Directories;
 
-import BusinessModel.Client;
+
 import BusinessModel.Store;
 import BusinessModel.StoreService;
 
@@ -17,7 +17,9 @@ public class WorkWithStores {
         while (!goBack) {
             System.out.println("1 - New store, 2 - Change store, 3 - Delete store, 4 - print stores, 5 - go back");
             if (sc.hasNextInt()) {
-                switch (sc.nextInt()) {
+                int choice=sc.nextInt();
+                sc.nextLine();
+                switch (choice) {
                     case 1 -> createNewStore();
                     case 2 -> changeStore();
                     case 3 -> deleteStore();
@@ -29,7 +31,7 @@ public class WorkWithStores {
         }
     }
 
-    private static void printStores() {
+    public static void printStores() {
         System.out.println("current stores:");
         for (Map.Entry<String, Store> entry: StoreService.getStoreMap().entrySet()){
             System.out.println("name="+entry.getKey());
@@ -37,9 +39,9 @@ public class WorkWithStores {
     }
 
     private static void deleteStore() {
-        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я0-9]*");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         printStores();
         System.out.println("Input name of deleting store");
         String line = sc.nextLine();
@@ -58,9 +60,9 @@ public class WorkWithStores {
     }
 
     private static void changeStore() {
-        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я0-9]*");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         printStores();
         System.out.println("Input name of changing store");
         String line = sc.nextLine();
@@ -86,10 +88,10 @@ public class WorkWithStores {
     }
 
     private static void createNewStore() {
-        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я0-9]*");
         System.out.println("Input name of store");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         String line = sc.nextLine();
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {

@@ -1,7 +1,9 @@
 package BusinessModel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -58,7 +60,7 @@ public class StoreService {
 
 
     //************** service procedures when creating new objects ********
-    //*** BusinessModel.Store *********
+    //*** Store *********
     public static void addNewStore(Store store ) {
         storeMap.put(store.getName(), store);
     }
@@ -74,7 +76,7 @@ public class StoreService {
     }
     //******************************************************
 
-    //*** BusinessModel.Product *************
+    //*** Product *************
     public static long getLastProductId() {
         return lastProductId;
     }
@@ -83,7 +85,7 @@ public class StoreService {
         StoreService.lastProductId = product.getProductID();
     }
 
-    //**** BusinessModel.Client **********************
+    //**** Client **********************
     public static void addClient(Client client){
         clientMap.put(client.getInn(), client);
     }
@@ -91,9 +93,9 @@ public class StoreService {
 
 
     //methods from home task
-    public static Invoice addInvoice(String invoiceNumber, EInvoiceType type, Store store, Client client) throws Exception {
-        return new Invoice(invoiceNumber, type, store, client);
-    }
+//    public static Invoice addInvoice(String invoiceNumber, EInvoiceType type, Store store, Client client) throws Exception {
+//        return new Invoice(invoiceNumber, type, store, client);
+//    }
 
     public static void correctInvoice(Invoice invoice, EInvoiceType type, Store store, Client client) {
         invoice.setType(type);
@@ -113,48 +115,75 @@ public class StoreService {
                 .filter(v -> (invoiceID == v.getKey()))
 //                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
                 .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
-
         return filteredMap;
+    }
+
+    //get invoice by Number
+    public static List<Invoice> getInvoiceByParam(String invoiceNum) {
+        List<Invoice> lst = invoiceMap.values().stream()
+                .filter(v -> (Objects.equals(invoiceNum, v.getInvoiceNumber())))
+                .toList();
+        return lst;
     }
 
     //get invoices by type
-    public static Map<Long, Invoice> getInvoiceByParam(EInvoiceType type) {
-        Map<Long, Invoice> filteredMap = invoiceMap
-                .entrySet()
-                .stream()
-                .filter(v -> (type == v.getValue().getType()))
-                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
-
-        return filteredMap;
+    public static List<Invoice> getInvoiceByParam(EInvoiceType type) {
+        List<Invoice> lst = invoiceMap.values().stream()
+                .filter(v -> (Objects.equals(type, v.getType())))
+                .toList();
+        return lst;
     }
+//    public static Map<Long, Invoice> getInvoiceByParam(EInvoiceType type) {
+//        Map<Long, Invoice> filteredMap = invoiceMap
+//                .entrySet()
+//                .stream()
+//                .filter(v -> (type == v.getValue().getType()))
+//                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+//
+//        return filteredMap;
+//    }
 
     //get invoices by store
-    public static Map<Long, Invoice> getInvoiceByParam(Store store) {
-        Map<Long, Invoice> filteredMap = invoiceMap
-                .entrySet()
-                .stream()
-                .filter(v -> (store.equals(v.getValue().getStore()) )  )
-//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
-
-        return filteredMap;
+    public static List<Invoice> getInvoiceByParam(Store store) {
+        List<Invoice> lst = invoiceMap.values().stream()
+                .filter(v -> (Objects.equals(store, v.getStore())))
+                .toList();
+        return lst;
     }
+//    public static Map<Long, Invoice> getInvoiceByParam(Store store) {
+//        Map<Long, Invoice> filteredMap = invoiceMap
+//                .entrySet()
+//                .stream()
+//                .filter(v -> (store.equals(v.getValue().getStore()) )  )
+////                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+//        return filteredMap;
+//    }
 
     //get invoices by client
-    public static Map<Long, Invoice> getInvoiceByParam(Client client) {
-        Map<Long, Invoice> filteredMap = invoiceMap
-                .entrySet()
-                .stream()
-                .filter(v -> (client.equals(v.getValue().getClient()) )  )
-//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+    public static List<Invoice> getInvoiceByParam(Client client) {
+        List<Invoice> lst = invoiceMap.values().stream()
+                .filter(v -> (Objects.equals(client, v.getClient())))
+                .toList();
+        return lst;
+    }
+//    public static Map<Long, Invoice> getInvoiceByParam(Client client) {
+//        Map<Long, Invoice> filteredMap = invoiceMap
+//                .entrySet()
+//                .stream()
+//                .filter(v -> (client.equals(v.getValue().getClient()) )  )
+////                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+//                .collect(Collectors.toMap(k -> k.getKey(), v -> v.getValue()));
+//        return filteredMap;
+//    }
 
-        return filteredMap;
+    public static List<Invoice> getAllInvoices(){
+        return invoiceMap.values().stream().toList();
     }
 
     //*************************
 
-    //get BusinessModel.Product by name
+    //get Product by name
 //    public static Map<String, BusinessModel.Product> getProductByParam(String name) {
 //        Map<String, BusinessModel.Product> filteredMap = productMap
 //                .entrySet()

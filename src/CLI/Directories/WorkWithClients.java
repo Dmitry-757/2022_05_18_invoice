@@ -16,7 +16,9 @@ public class WorkWithClients {
         while (!goBack) {
             System.out.println("1 - New client, 2 - change client, 3 - Delete client, 4-print all client, 5 - go back");
             if (sc.hasNextInt()) {
-                switch (sc.nextInt()) {
+                int choice = sc.nextInt();
+                sc.nextLine();
+                switch (choice) {
                     case 1 -> createNewClient();
                     case 2 -> changeClient();
                     case 3 -> deleteClient();
@@ -30,19 +32,20 @@ public class WorkWithClients {
 
     public static void printClients() {
         System.out.println("current clients:");
-        for (Map.Entry<Integer, Client> entry: StoreService.getClientMap().entrySet()){
-            System.out.println("Inn="+entry.getKey()+"  name="+entry.getValue().getName());
+        for (Map.Entry<Integer, Client> entry : StoreService.getClientMap().entrySet()) {
+            System.out.println("Inn=" + entry.getKey() + "  name=" + entry.getValue().getName());
         }
     }
 
     private static void deleteClient() {
-        sc.nextLine();
+        //sc.nextLine();
         System.out.println("Choose client from:");
         printClients();
 
         System.out.println("Input inn of deleting client");
         if (sc.hasNextInt()) {
             int inn = sc.nextInt();
+            sc.nextLine();
             System.out.println("inn of deleting client = " + inn);
             Client client = StoreService.getClientByINN(inn);
             if (client != null) {
@@ -57,16 +60,17 @@ public class WorkWithClients {
     private static void changeClient() {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         //String name;
-        sc.nextLine();
+        //sc.nextLine();
         printClients();
         System.out.println("Input inn of changing client");
         if (sc.hasNextInt()) {
             int inn = sc.nextInt();
+            sc.nextLine();
             System.out.println("inn of changing client = " + inn);
             Client client = StoreService.getClientByINN(inn);
             if (client != null) {
                 System.out.println("Input new name of client");
-                sc.nextLine();
+                //sc.nextLine();
                 String line = sc.nextLine();
                 Matcher matcher = pattern.matcher(line);
                 if (matcher.find()) {
@@ -82,16 +86,17 @@ public class WorkWithClients {
     }
 
     private static void createNewClient() {
-        sc.nextLine();
+        //sc.nextLine();
         System.out.println("Input inn of new client");
         if (sc.hasNextInt()) {
             int inn = sc.nextInt();
+            sc.nextLine();
             System.out.println("inn of new client = " + inn);
 
             Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
             System.out.println("Input name of client");
             String name;
-            sc.nextLine();
+            //sc.nextLine();
             String line = sc.nextLine();
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {

@@ -12,7 +12,9 @@ public class CLI {
     public void upLevelMenu() {
         System.out.println("1 - Work with Directories, 2 - Work with Invoices, 3 - terminate program");
         if (sc.hasNextInt()) {
-            switch (sc.nextInt()) {
+            int choice=sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
                 case 1 -> DirectoriesUpLevelMenu.workWithDirectories();
                 case 2 -> InvoicesUpLevelMenu.workWithInvoices();
                 case 3 -> AppMain.terminate = true;

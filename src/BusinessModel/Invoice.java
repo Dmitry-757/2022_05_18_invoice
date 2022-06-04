@@ -23,7 +23,6 @@ public class Invoice implements InvoiceI{
 
     //constructors
     public Invoice(@NotNull String invoiceNumber, @NotNull EInvoiceType type, @NotNull Store store, @NotNull Client client) throws Exception {
-//        if( BusinessModel.StoreService.<BusinessModel.Invoice, Long>isUsingForbidden(this, BusinessModel.StoreService.getLastInvoiceId()+1)) {
         if( StoreService.isUsingForbidden(this, StoreService.getLastInvoiceId()+1)) {
             throw new Exception("invoice with id "+(StoreService.getLastInvoiceId()+1)+" already exist!");
         }
@@ -78,7 +77,7 @@ public class Invoice implements InvoiceI{
                 invoiceStrings.put(invoiceString.getId(), invoiceString);
                 productSet.add(product);
             }
-            else System.out.println("BusinessModel.Product "+product.getName()+" already present!");
+            else System.out.println("Product "+product.getName()+" already present!");
         } catch (Exception e) {
             System.out.println("Error! "+e.getMessage());
         }
@@ -136,16 +135,15 @@ public class Invoice implements InvoiceI{
         String tablePart = "";
         if(sortedTreeMap.size() > 0 ) {
             StringBuilder sb = new StringBuilder();
-            String output = String.format("%20s    %10s \n", "BusinessModel.Product", "quantity");
+            String output = String.format("%20s    %10s \n", "Product", "quantity");
             sb.append(output);
             for (InvoiceString invoiceString : sortedTreeMap.values()) {
                 output = String.format("%20s    %10s \n", invoiceString.getProduct().getName(), invoiceString.getQuantity());
                 sb.append(output);
-//                sb.append("BusinessModel.Product: ").append(invoiceString.getProduct().getProductName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablePart = sb.toString();
         }
-        return "BusinessModel.Invoice{" +
+        return "Invoice{" +
                 "invoiceId=" + invoiceId +
                 ", type=" + type +
                 ", store=" + store.getName() +
@@ -192,12 +190,13 @@ public class Invoice implements InvoiceI{
         if(invoiceStrings != null) {
             StringBuilder sb = new StringBuilder();
             for (InvoiceString invoiceString : invoiceStrings.values()) {
-                sb.append("BusinessModel.Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
+                sb.append("Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
             }
             tablPart = sb.toString();
         }
-        return "BusinessModel.Invoice{" +
+        return "Invoice{" +
                 "invoiceId=" + invoiceId +
+                "invoiceNumber=" + invoiceNumber +
                 ", type=" + type +
                 ", store=" + store.getName() +
                 ", client=" + client.getName() +
@@ -205,10 +204,17 @@ public class Invoice implements InvoiceI{
                 tablPart;
     }
 
+    public String getTablePart(){
+        String tablPart = "";
+        if(invoiceStrings != null) {
+            StringBuilder sb = new StringBuilder();
+            for (InvoiceString invoiceString : invoiceStrings.values()) {
+                sb.append("Product: ").append(invoiceString.getProduct().getName()).append("  quantity = ").append(invoiceString.getQuantity()).append("\n");
+            }
+            tablPart = sb.toString();
+        }
+        return tablPart;
+    }
 
 }
 
-//enum BusinessModel.EInvoiceType {
-//    IN,
-//    OUT
-//}

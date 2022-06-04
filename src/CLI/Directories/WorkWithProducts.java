@@ -1,6 +1,6 @@
 package CLI.Directories;
 
-import BusinessModel.Client;
+
 import BusinessModel.Product;
 import BusinessModel.StoreService;
 
@@ -17,7 +17,9 @@ public class WorkWithProducts {
         while (!goBack) {
             System.out.println("1 - New product, 2 - Change product, 3 - Delete product, 4- print products,  5 - go back");
             if (sc.hasNextInt()) {
-                switch (sc.nextInt()) {
+                int choice=sc.nextInt();
+                sc.nextLine();
+                switch (choice) {
                     case 1 -> createNewProduct();
                     case 2 -> changeProduct();
                     case 3 -> deleteProduct();
@@ -29,7 +31,7 @@ public class WorkWithProducts {
         }
     }
 
-    private static void printProducts() {
+    public static void printProducts() {
         System.out.println("current products:");
         for (Map.Entry<String, Product> entry : StoreService.getProductMap().entrySet()) {
             System.out.println("name=" + entry.getKey() );
@@ -39,7 +41,7 @@ public class WorkWithProducts {
     private static void deleteProduct() {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         printProducts();
         System.out.println("Input name of deleting product");
         String line = sc.nextLine();
@@ -63,7 +65,7 @@ public class WorkWithProducts {
     private static void changeProduct() {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         printProducts();
         System.out.println("Input name of changing product");
         String line = sc.nextLine();
@@ -93,7 +95,7 @@ public class WorkWithProducts {
         Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я]*");
         System.out.println("Input name of product");
         String name;
-        sc.nextLine();
+        //sc.nextLine();
         String line = sc.nextLine();
         Matcher matcher = pattern.matcher(line);
         if (matcher.find()) {
