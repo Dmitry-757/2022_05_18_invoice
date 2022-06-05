@@ -115,7 +115,7 @@ public class Invoice implements InvoiceI{
     }
 
     @Override
-    public String getTableOfProducts() {
+    public String getTableSortedByProducts() {
 
         Comparator<Long> valueComparator = (o1, o2) -> {
             int compare = invoiceStringsMap

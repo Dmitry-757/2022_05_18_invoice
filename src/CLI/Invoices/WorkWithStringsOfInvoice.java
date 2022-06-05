@@ -4,7 +4,6 @@ import BusinessModel.Invoice;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,8 +48,9 @@ public class WorkWithStringsOfInvoice {
                         }
                     }
                     case 4 -> printStrings(invoice);
-                    case 5 -> printStringByProduct(invoice);
-                    case 6 -> goBack = true;
+                    case 5 -> printStringsSortedByProducts(invoice);
+                    case 6 -> printStringByProduct(invoice);
+                    case 7 -> goBack = true;
                     default -> System.out.println("Wrong input!");
                 }
             }
@@ -156,6 +156,10 @@ public class WorkWithStringsOfInvoice {
 
     private static void printStrings(Invoice invoice) {
         System.out.println(invoice.getTablePart());
+    }
+
+    private static void printStringsSortedByProducts(Invoice invoice) {
+        System.out.println(invoice.getTableSortedByProducts());
     }
 
     private static void addNewString(Invoice invoice) throws Exception {

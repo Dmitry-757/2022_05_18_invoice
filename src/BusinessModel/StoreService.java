@@ -212,18 +212,9 @@ public class StoreService {
     public static Store getStoreByName(String name) {
         return storeMap.get(name);
     }
-
     public static Client getClientByINN(int inn) {
         return clientMap.get(inn);
     }
-
-
-//    public static void deleteProduct(BusinessModel.Product product){
-//        productMap.remove(product.getProductName());
-//    }
-//    public static void deleteStore(BusinessModel.Store item){
-//        storeMap.remove(item.getStoreName());
-//    }
 
 }
 
