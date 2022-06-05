@@ -72,7 +72,6 @@ public class Invoice implements InvoiceI{
 
     //*********************** work with invoice strings *************
 
-
     public HashSet<Product> getProductSet() {
         return productSet;
     }
@@ -117,7 +116,6 @@ public class Invoice implements InvoiceI{
 
     @Override
     public String getTableOfProducts() {
-
 
         Comparator<Long> valueComparator = (o1, o2) -> {
             int compare = invoiceStringsMap

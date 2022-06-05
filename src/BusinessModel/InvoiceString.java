@@ -50,7 +50,7 @@ public class InvoiceString {
 
     @Override
     public String toString() {
-        return "BusinessModel.InvoiceString{" +
+        return "InvoiceString{" +
                 "invoiceId=" + invoiceId +
                 ", invoiceStringId=" + invoiceStringId +
                 ", product id=" + product.getProductID() +

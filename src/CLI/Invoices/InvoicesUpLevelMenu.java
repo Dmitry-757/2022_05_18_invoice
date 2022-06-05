@@ -93,7 +93,6 @@ public class InvoicesUpLevelMenu {
         }
 
         System.out.println("Enter number of invoice");
-
         String invoiceNumber;
         String line = sc.nextLine();
         Matcher matcher = pattern.matcher(line);

@@ -3,6 +3,8 @@ package CLI.Invoices;
 import BusinessModel.Invoice;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +19,9 @@ public class WorkWithStringsOfInvoice {
     public static void workWithStringsOfInvoice(Invoice invoice){
         boolean goBack = false;
         while (!goBack) {
-            System.out.println("1 - New string, 2 - change string, 3 - Delete string, 4 - print strings, 5 - go back");
+            System.out.println("1 - New string, 2 - change string," +
+                    " 3 - Delete string, 4 - print strings, 5 - print string by product, " +
+                    "6 - go back");
             //sc.nextLine();
             if (sc.hasNextInt()) {
                 int choice=sc.nextInt();
@@ -45,10 +49,36 @@ public class WorkWithStringsOfInvoice {
                         }
                     }
                     case 4 -> printStrings(invoice);
-                    case 5 -> goBack = true;
+                    case 5 -> printStringByProduct(invoice);
+                    case 6 -> goBack = true;
                     default -> System.out.println("Wrong input!");
                 }
             }
+        }
+
+    }
+
+    private static void printStringByProduct(Invoice invoice) {
+        System.out.println("Enter product for printing string");
+        System.out.println("Available products are:");
+        for(Product product:invoice.getProductSet()){
+            System.out.println(product.getName());
+        }
+
+        Pattern pattern = Pattern.compile("^[a-zA-Zа-яА-Я0-9]*");
+        System.out.println("Enter name of product");
+        String productName;
+        String line = sc.nextLine();
+        Matcher matcher = pattern.matcher(line);
+        if (matcher.find()) {
+            productName = matcher.group();
+            System.out.println("name of product = " + productName);
+            Map<Long, InvoiceString> filteredMap = invoice.getInvoiceStringByProduct(productName);
+            for (Map.Entry<Long,InvoiceString> entry: filteredMap.entrySet()){
+                System.out.println("Product = "+entry.getValue().getProduct().getName()+" quantity = "+entry.getValue().getQuantity());
+            }
+        } else {
+            System.out.println("wrong input...");
         }
 
     }
